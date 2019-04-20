@@ -3,6 +3,7 @@ package com.zafar.notes;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -11,12 +12,14 @@ import android.view.KeyEvent;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.HashSet;
 
 public class NoteEditorActivity extends AppCompatActivity {
 
     int noteID;
+    boolean noteAdded;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,7 +29,7 @@ public class NoteEditorActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         noteID = intent.getIntExtra("noteID", -1);
-
+        noteAdded = intent.getBooleanExtra("noteAdded", false);
         if(noteID != -1){
             editText.setText(MainActivity.notes.get(noteID));
         }else{
@@ -49,6 +52,7 @@ public class NoteEditorActivity extends AppCompatActivity {
                 HashSet<String> set = new HashSet<>(MainActivity.notes);
                 sharedPreferences.edit().putStringSet("notes", set).apply();
 
+
             }
 
             @Override
@@ -63,6 +67,30 @@ public class NoteEditorActivity extends AppCompatActivity {
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
                     Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                     startActivity(intent);
+
+                    if (noteAdded) {
+                        final Toast toast = Toast.makeText(getApplicationContext(), "Note Added",
+                                Toast.LENGTH_SHORT);
+                        toast.show();
+                        Handler handler = new Handler();
+                        handler.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                toast.cancel();
+                            }
+                        }, 800);
+                    } else {
+                        final Toast toast = Toast.makeText(getApplicationContext(), "Note Edited",
+                                Toast.LENGTH_SHORT);
+                        toast.show();
+                        Handler handler = new Handler();
+                        handler.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                toast.cancel();
+                            }
+                        }, 800);
+                    }
                     finish();
                 }
                 return handled;

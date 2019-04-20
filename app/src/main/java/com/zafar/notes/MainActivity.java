@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Handler;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,6 +15,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -73,7 +75,16 @@ public class MainActivity extends AppCompatActivity {
 
                                 HashSet<String> set = new HashSet<>(MainActivity.notes);
                                 sharedPreferences.edit().putStringSet("notes", set).apply();
-
+                                final Toast toast = Toast.makeText(getApplicationContext(), "Note Deleted",
+                                        Toast.LENGTH_SHORT);
+                                toast.show();
+                                Handler handler = new Handler();
+                                handler.postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        toast.cancel();
+                                    }
+                                }, 800);
                             }
                         })
                         .setNegativeButton("No",null)
@@ -108,6 +119,7 @@ public class MainActivity extends AppCompatActivity {
         if (item.getItemId() == R.id.add_note){
 
             Intent intent = new Intent(getApplicationContext(), NoteEditorActivity.class);
+            intent.putExtra("noteAdded", true);
             startActivity(intent);
 
             return true;
