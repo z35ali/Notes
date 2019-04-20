@@ -35,6 +35,7 @@ public class NoteEditorActivity extends AppCompatActivity {
         }else{
             MainActivity.notes.add("");
             noteID = MainActivity.notes.size() - 1;
+            MainActivity.arrayAdapter.notifyDataSetChanged();
         }
 
         editText.addTextChangedListener(new TextWatcher() {
