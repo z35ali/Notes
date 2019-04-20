@@ -23,7 +23,7 @@
                                           <PersistentState>
                                             <option name="values">
                                               <map>
-                                                <entry key="scalingPercent" value="76" />
+                                                <entry key="scalingPercent" value="80" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -33,7 +33,7 @@
                                   </option>
                                   <option name="values">
                                     <map>
-                                      <entry key="foregroundImage" value="C:\Users\Zafar\Desktop\ic_launcher_round\ic_launcher_round.png" />
+                                      <entry key="foregroundImage" value="C:\Users\Zafar\Desktop\ic_launcher.png" />
                                     </map>
                                   </option>
                                 </PersistentState>
