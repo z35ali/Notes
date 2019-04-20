@@ -60,42 +60,42 @@ public class NoteEditorActivity extends AppCompatActivity {
 
             }
         });
-        editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                boolean handled = false;
-                if (actionId == EditorInfo.IME_ACTION_DONE) {
-                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                    startActivity(intent);
 
-                    if (noteAdded) {
-                        final Toast toast = Toast.makeText(getApplicationContext(), "Note Added",
-                                Toast.LENGTH_SHORT);
-                        toast.show();
-                        Handler handler = new Handler();
-                        handler.postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                toast.cancel();
-                            }
-                        }, 800);
-                    } else {
-                        final Toast toast = Toast.makeText(getApplicationContext(), "Note Edited",
-                                Toast.LENGTH_SHORT);
-                        toast.show();
-                        Handler handler = new Handler();
-                        handler.postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                toast.cancel();
-                            }
-                        }, 800);
-                    }
-                    finish();
-                }
-                return handled;
-            }
-        });
+
     }
+
+    @Override
+    public void onBackPressed()
+    {
+
+        super.onBackPressed();
+
+        if (noteAdded) {
+            final Toast toast = Toast.makeText(getApplicationContext(), "Note Added",
+                    Toast.LENGTH_SHORT);
+            toast.show();
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    toast.cancel();
+                }
+            }, 800);
+        } else {
+            final Toast toast = Toast.makeText(getApplicationContext(), "Note Edited",
+                    Toast.LENGTH_SHORT);
+            toast.show();
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    toast.cancel();
+                }
+            }, 800);
+        }
+        finish();
+    }
+
+
 
 }
